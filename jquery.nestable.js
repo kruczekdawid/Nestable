@@ -253,6 +253,8 @@
                 target   = $(e.target),
                 dragItem = target.closest(this.options.itemNodeName);
 
+            this.el.trigger('dragStart');
+
             this.placeEl.css('height', dragItem.height());
 
             mouse.offsetX = e.offsetX !== undefined ? e.offsetX : e.pageX - target.offset().left;
@@ -293,8 +295,10 @@
 
             this.dragEl.remove();
             this.el.trigger('change');
+            this.el.trigger('dragEnd');
             if (this.hasNewRoot) {
                 this.dragRootEl.trigger('change');
+                this.dragRootEl.trigger('dragEnd');
             }
             this.reset();
         },
